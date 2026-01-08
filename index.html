@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LEAP-MED | Sustainable Biological Assets</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;900&family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
     
     <style>
         /* --- CORE VARIABLES --- */
@@ -14,6 +14,7 @@
             --neon-green: #00ff41;
             --muted-green: #4dad69;
             --alert-green: #ccff00;
+            --hack-red: #ff3333;
             --white: #f0fff4;
         }
 
@@ -37,15 +38,12 @@
             100% { transform: translateY(0px); }
         }
 
-        @keyframes pulse-glow {
-            0% { box-shadow: 0 0 5px var(--neon-green); }
-            50% { box-shadow: 0 0 20px var(--neon-green), 0 0 10px var(--neon-green) inset; }
-            100% { box-shadow: 0 0 5px var(--neon-green); }
-        }
-
-        @keyframes slideInUp {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes glitch {
+            0% { text-shadow: 2px 2px 0px var(--hack-red), -2px -2px 0px var(--neon-green); }
+            25% { text-shadow: -2px 2px 0px var(--hack-red), 2px -2px 0px var(--neon-green); }
+            50% { text-shadow: 2px -2px 0px var(--hack-red), -2px 2px 0px var(--neon-green); }
+            75% { text-shadow: -2px -2px 0px var(--hack-red), 2px 2px 0px var(--neon-green); }
+            100% { text-shadow: 2px 2px 0px var(--hack-red), -2px -2px 0px var(--neon-green); }
         }
 
         /* Scroll Reveal Utility Classes */
@@ -103,7 +101,7 @@
             background: linear-gradient(180deg, rgba(5,15,5,0.7) 0%, rgba(5,15,5,1) 100%), 
                         url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop');
             background-size: cover;
-            background-attachment: fixed; /* Parallax effect */
+            background-attachment: fixed;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -205,6 +203,77 @@
             right: 20px;
         }
 
+        /* --- HACK CLUB YSWS SECTION --- */
+        .ysws-section {
+            background-color: #000;
+            border-top: 5px solid var(--hack-red);
+            border-bottom: 5px solid var(--hack-red);
+            padding: 80px 20px;
+            font-family: 'VT323', monospace;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ysws-title {
+            font-size: 4rem;
+            color: var(--hack-red);
+            animation: glitch 2s infinite;
+            margin-bottom: 10px;
+        }
+
+        .ysws-subtitle {
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .exchange-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .exchange-card {
+            background: #111;
+            border: 2px dashed var(--hack-red);
+            padding: 20px;
+            width: 350px;
+            color: var(--neon-green);
+        }
+
+        .exchange-arrow {
+            font-size: 3rem;
+            color: white;
+            align-self: center;
+        }
+
+        .ram-img {
+            font-size: 4rem; 
+            margin: 10px 0;
+            display: block;
+        }
+
+        .btn-trade {
+            background: var(--hack-red);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-family: 'VT323', monospace;
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin-top: 15px;
+            width: 100%;
+        }
+        
+        .btn-trade:hover {
+            background: white;
+            color: black;
+        }
+
         /* --- LEADERSHIP --- */
         .team {
             padding: 100px 50px;
@@ -285,8 +354,9 @@
         <div class="logo">LEAP-MED ⚕️</div>
         <div class="nav-links">
             <a href="#catalog">Inventory</a>
+            <a href="#ysws">YSWS Tech Exchange</a>
             <a href="#team">The Board</a>
-            <a href="#legal">Legal / Compliance</a>
+            <a href="#legal">Legal</a>
         </div>
     </nav>
 
@@ -334,6 +404,35 @@
         </div>
     </section>
 
+    <section id="ysws" class="ysws-section reveal">
+        <h2 class="ysws-title">HACK CLUB YSWS</h2>
+        <h3 class="ysws-subtitle">"YOU SLICE, WE SHIP"</h3>
+        <p style="margin-bottom: 30px; font-size: 1.2rem;">Hardware prices are up. Organ prices are stable. Do the math.</p>
+
+        <div class="exchange-container">
+            <div class="exchange-card">
+                <h3>THE "FULL STACK"</h3>
+                <div class="ram-img">🫀 ➔ 💾</div>
+                <p>DONATE:</p>
+                <h2 style="color: white;">1 WHOLE LIVER</h2>
+                <p>RECEIVE:</p>
+                <h2 style="color: var(--hack-red);">4GB DDR5 RAM</h2>
+                <button class="btn-trade">INITIATE SWAP</button>
+            </div>
+
+            <div class="exchange-card">
+                <h3>THE "PARTIAL COMMIT"</h3>
+                <div class="ram-img">🥩 ➔ 💾</div>
+                <p>DONATE:</p>
+                <h2 style="color: white;">PARTIAL LIVER</h2>
+                <p>RECEIVE:</p>
+                <h2 style="color: var(--hack-red);">2GB DDR5 RAM</h2>
+                <button class="btn-trade">INITIATE SWAP</button>
+            </div>
+        </div>
+        <p style="margin-top: 20px; font-size: 0.8rem; opacity: 0.7;">*NOTE: RAM stick brand varies based on what we find in the dumpster behind Micro Center.</p>
+    </section>
+
     <section id="team" class="team">
         <h2 class="section-title reveal">Executive Leadership</h2>
         <div class="grid">
@@ -376,9 +475,6 @@
     </footer>
 
     <script>
-        // This script checks if an element is in the screen view
-        // If it is, it adds the class "active" which triggers the CSS animation
-        
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
 
