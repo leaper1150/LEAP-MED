@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEAP-MED | Sustainable Biological Assets</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CORE VARIABLES --- */
+        :root {
+            --bg-dark: #050f05;
+            --bg-panel: #0d2b1d;
+            --neon-green: #00ff41;
+            --muted-green: #4dad69;
+            --alert-green: #ccff00;
+            --white: #f0fff4;
+        }
+
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg-dark);
+            color: var(--white);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* --- ANIMATION KEYFRAMES --- */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 5px var(--neon-green); }
+            50% { box-shadow: 0 0 20px var(--neon-green), 0 0 10px var(--neon-green) inset; }
+            100% { box-shadow: 0 0 5px var(--neon-green); }
+        }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Scroll Reveal Utility Classes */
+        .reveal {
+            opacity: 0;
+            transition: all 1s ease-out;
+            transform: translateY(50px);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 50px;
+            background: rgba(5, 15, 5, 0.95);
+            border-bottom: 2px solid var(--neon-green);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .logo {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.8rem;
+            color: var(--neon-green);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: float 3s infinite ease-in-out;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--neon-green);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(180deg, rgba(5,15,5,0.7) 0%, rgba(5,15,5,1) 100%), 
+                        url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-attachment: fixed; /* Parallax effect */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            text-transform: uppercase;
+            color: transparent;
+            -webkit-text-stroke: 2px var(--neon-green);
+            margin: 0;
+            letter-spacing: 5px;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            color: var(--white);
+            margin-top: 10px;
+            text-shadow: 0 0 20px var(--neon-green);
+        }
+
+        .cta-btn {
+            margin-top: 40px;
+            padding: 20px 50px;
+            background: transparent;
+            border: 2px solid var(--neon-green);
+            color: var(--neon-green);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.5rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-btn:hover {
+            background: var(--neon-green);
+            color: var(--bg-dark);
+            box-shadow: 0 0 30px var(--neon-green);
+        }
+
+        /* --- PRICE LIST (CATALOG) --- */
+        .catalog {
+            padding: 100px 50px;
+            background-color: var(--bg-dark);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            color: var(--muted-green);
+            margin-bottom: 60px;
+            text-transform: uppercase;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--muted-green);
+            padding: 30px;
+            border-radius: 5px;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-green);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+        }
+
+        .product-price {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 2rem;
+            color: var(--alert-green);
+            display: block;
+            margin: 15px 0;
+        }
+
+        .stock-badge {
+            background: var(--neon-green);
+            color: var(--bg-dark);
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        /* --- LEADERSHIP --- */
+        .team {
+            padding: 100px 50px;
+            background: #081a0e;
+            text-align: center;
+        }
+
+        .profile-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 4px solid var(--neon-green);
+            margin: 0 auto 20px;
+            background-size: cover;
+            background-position: center;
+            animation: float 4s infinite ease-in-out;
+        }
+
+        /* --- LEGAL SECTION --- */
+        .legal {
+            background: black;
+            padding: 80px 20px;
+            border-top: 4px solid var(--alert-green);
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        .legal-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            opacity: 0.8;
+        }
+
+        .legal h2 {
+            color: var(--alert-green);
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+
+        .legal-box {
+            border: 1px dashed var(--muted-green);
+            padding: 30px;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .lawyer-contact {
+            font-size: 1.2rem;
+            color: var(--neon-green);
+            border: 2px solid var(--neon-green);
+            padding: 20px;
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .lawyer-contact:hover {
+            background: var(--neon-green);
+            color: black;
+            cursor: pointer;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #020502;
+            color: #333;
+            font-size: 0.7rem;
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">LEAP-MED ⚕️</div>
+        <div class="nav-links">
+            <a href="#catalog">Inventory</a>
+            <a href="#team">The Board</a>
+            <a href="#legal">Legal / Compliance</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1 class="reveal">LEAP-MED</h1>
+        <h2 class="reveal">Organic Transfer Solutions</h2>
+        <p style="letter-spacing: 2px; color: var(--neon-green);" class="reveal">"We Leap So You Can Live (Eventually)"</p>
+        <button class="cta-btn reveal" onclick="window.location.href='#catalog'">VIEW HARVEST LIST</button>
+    </header>
+
+    <section id="catalog" class="catalog">
+        <h2 class="section-title reveal">Current Market Pricing</h2>
+        <div class="grid">
+            <div class="product-card reveal">
+                <span class="stock-badge">FRESH STOCK</span>
+                <h3>The "Marathon" Lung Set</h3>
+                <p>High capacity, non-smoker origin. Harvested post-sprint for maximum elasticity.</p>
+                <span class="product-price">$45,000 / pair</span>
+                <button class="cta-btn" style="font-size: 0.8rem; padding: 10px 20px;">ADD TO CART</button>
+            </div>
+
+            <div class="product-card reveal">
+                <span class="stock-badge">RARE FIND</span>
+                <h3>Liver (Grade A+)</h3>
+                <p>Regenerative capabilities confirmed. Filtered through organic kale smoothie diet.</p>
+                <span class="product-price">$120,000</span>
+                <button class="cta-btn" style="font-size: 0.8rem; padding: 10px 20px;">ADD TO CART</button>
+            </div>
+
+            <div class="product-card reveal">
+                <span class="stock-badge">SALE</span>
+                <h3>Kidney (Right Side)</h3>
+                <p>Standard functionality. Previous owner drank too much soda, hence the discount.</p>
+                <span class="product-price">$15,999</span>
+                <button class="cta-btn" style="font-size: 0.8rem; padding: 10px 20px;">ADD TO CART</button>
+            </div>
+
+            <div class="product-card reveal">
+                <span class="stock-badge">MYSTERY</span>
+                <h3>The "Leap" Box</h3>
+                <p>A random assortment of connective tissues and one major organ. Feeling lucky?</p>
+                <span class="product-price">$5,000</span>
+                <button class="cta-btn" style="font-size: 0.8rem; padding: 10px 20px;">ADD TO CART</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="team" class="team">
+        <h2 class="section-title reveal">Executive Leadership</h2>
+        <div class="grid">
+            <div class="reveal">
+                <div class="profile-img" style="background-color: #004400; display:flex; align-items:center; justify-content:center; font-size:4rem;">🐸</div>
+                <h3 style="color: var(--neon-green);">LEAPER LEE</h3>
+                <p style="font-weight: bold;">PRESIDENT & CHIEF HARVESTER</p>
+                <p>"Growth requires sacrifice. Usually someone else's."</p>
+            </div>
+            <div class="reveal">
+                <div class="profile-img" style="background-color: #004400; display:flex; align-items:center; justify-content:center; font-size:4rem;">🦗</div>
+                <h3 style="color: var(--neon-green);">LEAP JUMPER</h3>
+                <p style="font-weight: bold;">DIRECTOR OF ACQUISITIONS</p>
+                <p>"We don't wait for donors. We create opportunities."</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="legal" class="legal">
+        <div class="legal-content reveal">
+            <h2>⚠️ LEGAL COMPLIANCE & LIABILITY</h2>
+            
+            <div class="legal-box">
+                <p><strong>CLAUSE 41.B:</strong> LEAP-MED functions under the "Finders Keepers" Maritime Law amendment of 2025. All organic transfers are final.</p>
+                <p><strong>CLAUSE 88.C:</strong> By viewing this website, you agree that your biological data has already been scanned and priced.</p>
+            </div>
+
+            <p>For cease and desists, lawsuits, or to beg for your kidney back, contact our legal representation immediately:</p>
+            
+            <a href="mailto:yoyo34yye@gmail.com" class="lawyer-contact">
+                ✉️ EMAIL LEGAL TEAM: yoyo34yye@gmail.com
+            </a>
+            
+            <p style="font-size: 0.8rem; margin-top: 20px; color: #555;">(Expect a response time of 6-8 months unless subject line includes "Settlement Offer")</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>COPYRIGHT 2026 LEAP-MED | RECYCLING LIFE AT TERMINAL VELOCITY</p>
+    </footer>
+
+    <script>
+        // This script checks if an element is in the screen view
+        // If it is, it adds the class "active" which triggers the CSS animation
+        
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+        // Trigger once on load
+        reveal();
+    </script>
+
+</body>
+</html>
